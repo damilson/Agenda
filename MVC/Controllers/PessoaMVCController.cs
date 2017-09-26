@@ -39,16 +39,24 @@ namespace MVC.Controllers
         {
 
             var enderecos = formData["txt-endereco"].ToString().Split(',');
+            var numeros = formData["txt-numero"].ToString().Split(',');
+            var complementos = formData["txt-complemento"].ToString().Split(',');
+            var tipos = formData["txt-tipo"].ToString().Split(',');
+            var celular = formData["txt-celular"].ToString().Split(',');
+
             var enderecoLista = new List<EnderecoDTO>();
             for (int i = 0; i <= enderecos.Length; i++)
             {
-
+                enderecoLista.Add(new EnderecoDTO()
+                {
+                    EnderecoNome = enderecos[i].ToString(),
+                });
             }
             
             var pessoa = new PessoaDTO()
             {
                 Nome = formData["txt-nome"].ToString(),
-                    
+                EnderecoLista = enderecoLista,
             };
             return Json("");
         }
