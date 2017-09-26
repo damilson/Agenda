@@ -1,0 +1,77 @@
+﻿@model UI.ViewModel.PessoaUI
+
+@{
+    Layout = null;
+}
+<link href="~/Content/bootstrap.css" rel="stylesheet" />
+<script src="~/Scripts/jquery-3.2.1.js"></script>
+
+<div class="container">
+    <div class="row">
+        <form id="meuForm">
+            <div class="row">
+                <label class="col-lg-1">Nome:</label>
+                <input id="txt-nome" name="txt-nome" type="text" class="form-control" />
+            </div>
+            <div id="endereco">
+                <div class="row">
+                    <label class="col-lg-1">Endereço:</label>
+                    <input id="txt-endereco" name="txt-endereco" type="text" onkeyup="adicionaLogradouro()" class="form-control" />
+                    <span class="glyphicon glyphicon-plus" id="adicionarendereco"></span>
+                </div>
+                <div class="hidden" id="logradouro">
+                    <div class="row">
+                        <label class="col-lg-1">Número</label>
+                        <input id="txt-numero" name="txt-numero" type="text" class="form-control" required />
+                    </div>
+                    <div class="row">
+                        <label class="col-lg-1">Complemento</label>
+                        <input id="txt-complemento" name="txt-complemento" type="text" class="form-control" />
+                    </div>
+                    <div class="row">
+                        <label class="col-lg-1">Tipo residencia</label>
+                        <select id="txt-tipo" name="txt-tipo" class="form-control">
+                            <option>Selecione</option>
+                            <option>Residencial</option>
+                            <option>Comercial</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <label class="col-lg-1">Celular</label>
+                <input id="txt-celular" name="txt-celular" type="tel" class="form-control" />
+            </div>
+            <div class="row">
+                <button onclick="submitInfo()">Enviar</button>
+            </div>
+        </form>
+    </div>
+</div>
+<script>
+    $("#adicionarendereco").click(function () {
+        $('#endereco').append($("#endereco").clone(true));
+    });
+
+    adicionaLogradouro = function () {
+        if ($("#txt-endereco").val() != "") {
+            $("#logradouro").removeClass("hidden");
+        } else {
+            $("#logradouro").addClass("hidden");
+        }
+    };
+    submitInfo = function SubmitInfo() {
+        $.ajax({
+            type: 'POST',
+            url: 'http://localhost:57248/PessoaMVC/Create',
+            data: $('#meuForm').serialize(),
+            dataType: 'json',
+            success: function (data) {
+                alert("sucesso")
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                alert("AJAX error: " + textStatus + ' : ' + errorThrown);
+            }
+        });
+    }
+</script>
