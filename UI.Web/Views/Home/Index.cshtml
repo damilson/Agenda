@@ -1,0 +1,15 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+@using (Ajax.BeginForm("Index", "http://localhost:57248/Home", new AjaxOptions
+{
+    OnSuccess = "OnSuccess"
+}))
+{
+    <button type="submit">Submit</button>
+}
+

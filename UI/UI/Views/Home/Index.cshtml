@@ -1,0 +1,17 @@
+﻿@using System.Configuration;
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+@ViewBag.teste
+
+@using (Ajax.BeginForm("Index", ConfigurationManager.AppSettings["BaseURL"]+"/Home", new AjaxOptions
+{
+    OnSuccess = "OnSuccess"
+}))
+{
+    <button type="submit">Submit</button>
+}

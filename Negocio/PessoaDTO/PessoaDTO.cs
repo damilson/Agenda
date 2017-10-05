@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using Repositorio.Model;
 
 namespace Negocio.Data
 {
@@ -10,5 +12,6 @@ namespace Negocio.Data
         public List<EnderecoDTO> Enderecos { get; set; }
 
         public List<ContatoDTO> Contatos { get; set; }
+
     }
 }
