@@ -11,6 +11,7 @@ namespace Repositorio.Configuracao
         {
             this.Configuration.ProxyCreationEnabled = true;
             this.Configuration.LazyLoadingEnabled = true;
+            var instance = System.Data.Entity.SqlServer.SqlProviderServices.Instance;
         }
 
         public DbSet<Pessoa> PESSOA { get; set; }
@@ -20,6 +21,7 @@ namespace Repositorio.Configuracao
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
+
             base.OnModelCreating(modelBuilder);
         }
     }

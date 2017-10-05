@@ -7,13 +7,13 @@ namespace Repositorio.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class InicializaBase : IMigrationMetadata
+    public sealed partial class InicializaBanco : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(InicializaBase));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(InicializaBanco));
         
         string IMigrationMetadata.Id
         {
-            get { return "201710031417343_InicializaBase"; }
+            get { return "201710052010415_InicializaBanco"; }
         }
         
         string IMigrationMetadata.Source

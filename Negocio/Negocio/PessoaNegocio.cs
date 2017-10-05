@@ -5,16 +5,18 @@ using Negocio.Data;
 using Repositorio.Repositorio;
 using Repositorio.Model;
 using System.Linq;
+using AutoMapper;
+using Repositorio.Data;
 
 namespace Negocio.Negocio
 {
     public class PessoaNegocio : IPessoaNegocio
     {
-        private readonly IRepositorio _repositorio;
+        private readonly IPessoaData _pessoa;
 
         public PessoaNegocio()
         {
-            _repositorio = new Repositorio.Repositorio.Repositorio();
+            _pessoa= new PessoaData();
         }
 
         public void Cadastrar(PessoaDTO pessoa)
@@ -34,22 +36,10 @@ namespace Negocio.Negocio
 
         public List<PessoaDTO> Listar()
         {
-            var listaPessoas = _repositorio.List<Pessoa>().ToList();
+            var listaPessoas = _pessoa.Listar();
 
-            var listaPessoaDTO = new List<PessoaDTO>();
-
-            foreach (var pessoa in listaPessoas)
-            {
-                listaPessoas.Add(new PessoaDTO
-                {
-                    PessoaId = pessoa.PessoaId,
-                    Contatos = (ContatoDTO)pessoa.Contatos.ToList(),
-                    Enderecos = pessoa.Enderecos,
-                    Nome = pessoa.Nome
-                });
-            }
-            return listaPessoas.ToList();
-
+            var clienteView = Mapper.Map<List<Pessoa>, List<PessoaDTO>>(listaPessoas);
+            return clienteView;
         }
 
         public static object ChangeType(object value, Type conversionType)

@@ -13,7 +13,7 @@ namespace Negocio.Mappers
 
         protected void configure()
         {
-            CreateMap<PessoaDTO, Pessoa>();
+            CreateMap<PessoaDTO, Pessoa>().ReverseMap();
         }
     }
 }

@@ -2,7 +2,6 @@
 using Repositorio.Model;
 using Repositorio.Repositorio;
 using System.Linq;
-using Repositorio.Data;
 
 namespace Repositorio.Data
 {

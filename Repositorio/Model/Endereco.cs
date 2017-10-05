@@ -11,7 +11,6 @@ namespace Repositorio.Model
         public virtual string EnderecoNome { get; set; }
         public virtual int PessoaId { get; set; }
         public virtual Pessoa Pessoa { get; set; }
-        public virtual int? LogradouroId { get; set; }
-        public virtual Logradouro Logradouro { get; set; }
+        public virtual List<Endereco> EnderecoLista { get; set; }
     }
 }
