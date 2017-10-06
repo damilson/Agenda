@@ -2,6 +2,8 @@ using System;
 using Microsoft.Practices.Unity;
 using Negocio.Negocio;
 using Negocio.Interfaces;
+using AutoMapper;
+using Negocio.Mappers;
 
 namespace InjectionDependece
 {
@@ -33,6 +35,12 @@ namespace InjectionDependece
         /// change the defaults), as Unity allows resolving a concrete type even if it was not previously registered.</remarks>
         public static void RegisterTypes(IUnityContainer container)
         {
+            var automap = new MapperConfiguration(config => config.AddProfile<AgendaMappingProfile>());
+            automap.AssertConfigurationIsValid();
+
+            container.RegisterInstance(automap.CreateMapper());
+
+
             // NOTE: To load from web.config uncomment the line below. Make sure to add a Microsoft.Practices.Unity.Configuration to the using statements.
             // container.LoadConfiguration();
 
@@ -40,6 +48,8 @@ namespace InjectionDependece
             // container.RegisterType<IProductRepository, ProductRepository>();
             container.RegisterType<IPessoaNegocio, PessoaNegocio>();
             container.RegisterType<IContatoNegocio, ContatoNegocio>();
+
+                
         }
     }
 }

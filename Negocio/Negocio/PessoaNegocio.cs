@@ -13,10 +13,12 @@ namespace Negocio.Negocio
     public class PessoaNegocio : IPessoaNegocio
     {
         private readonly IPessoaData _pessoa;
+        private readonly IMapper _mapper;
 
-        public PessoaNegocio()
+        public PessoaNegocio(IMapper mapper)
         {
             _pessoa= new PessoaData();
+            _mapper = mapper;
         }
 
         public void Cadastrar(PessoaDTO pessoa)
@@ -38,7 +40,7 @@ namespace Negocio.Negocio
         {
             var listaPessoas = _pessoa.Listar();
 
-            var clienteView = Mapper.Map<List<Pessoa>, List<PessoaDTO>>(listaPessoas);
+            var clienteView = _mapper.Map<List<Pessoa>, List<PessoaDTO>>(listaPessoas);
             return clienteView;
         }
 

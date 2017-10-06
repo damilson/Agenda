@@ -98,14 +98,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Global.asax.cs">
-      <DependentUpon>Global.asax</DependentUpon>
-    </Compile>
     <Compile Include="Interfaces\IContatoNegocio.cs" />
     <Compile Include="Interfaces\IPessoaNegocio.cs" />
-    <Compile Include="Mappers\AutoMapperConfig.cs" />
-    <Compile Include="Mappers\PessoaDTOMappingProfile.cs" />
-    <Compile Include="Mappers\PessoaMappingProfile.cs" />
+    <Compile Include="Mappers\AgendaMappingProfile.cs" />
     <Compile Include="Negocio\ContatoNegocio.cs" />
     <Compile Include="Negocio\PessoaNegocio.cs" />
     <Compile Include="PessoaDTO\ContatoDTO.cs" />
@@ -127,9 +122,6 @@
       <Project>{00FB9521-4ECA-43E5-AD5C-2E13B6F8A326}</Project>
       <Name>Util</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Global.asax" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Start\" />
