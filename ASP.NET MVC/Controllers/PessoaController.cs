@@ -1,4 +1,7 @@
-﻿using Negocio.Interfaces;
+﻿using ASP.NET_MVC.ViewModels;
+using Negocio.Interfaces;
+using System.Collections.Generic;
+using System.Linq;
 using System.Web.Mvc;
 
 namespace ASP.NET_MVC.Controllers
@@ -14,8 +17,49 @@ namespace ASP.NET_MVC.Controllers
         // GET: Pessoa
         public JsonResult Index()
         {
-            _pessoaNegocio.Listar();
-            return Json("Teste de aplicação", JsonRequestBehavior.AllowGet);
+            var listaPessoasDTO = _pessoaNegocio.Listar();
+            var listaPessoasViewModels = new List<PessoaViewModel>();
+            var listaContatos = new List<ContatoViewModel>();
+            var listaEnderecos = new List<EnderecoViewModel>();
+
+            listaEnderecos =
+                listaPessoasDTO
+                .SelectMany(p => p.Enderecos)
+                .Select(endereco => new EnderecoViewModel
+                {
+                    EnderecoId = endereco.EnderecoId,
+                    EnderecoNome = endereco.EnderecoNome,
+                    Logradouro = new LogradouroViewModel
+                    {
+                        LogradouroId = endereco.Logradouro.LogradouroId,
+                        Bairro = endereco.Logradouro.Bairro,
+                        Cidade = endereco.Logradouro.Cidade,
+                        Complemento = endereco.Logradouro.Complemento,
+                        Estado = endereco.Logradouro.Estado,
+                        Numero = endereco.Logradouro.Numero,
+                        Tipo = endereco.Logradouro.Tipo
+                    }
+                }).ToList();
+
+            listaContatos = listaPessoasDTO
+                .SelectMany(x => x.Contatos)
+                .Select(contato => new ContatoViewModel
+                {
+                    ContatoId = contato.ContatoId,
+                    Nome = contato.Nome,
+                    Agrupador = contato.Agrupador,
+                    TipoContato = contato.TipoContato
+                }).ToList();
+
+            listaPessoasViewModels = listaPessoasDTO.Select(pessoa => new PessoaViewModel
+            {
+                PessoaId = pessoa.PessoaId,
+                Nome = pessoa.Nome,
+                Enderecos = listaEnderecos,
+                Contatos = listaContatos
+            }).ToList();
+
+            return Json(listaPessoasViewModels, JsonRequestBehavior.AllowGet);
         }
 
         // GET: Pessoa/Details/5

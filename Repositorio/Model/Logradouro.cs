@@ -12,11 +12,8 @@ namespace Repositorio.Model
         public virtual int Numero { get; set; }
         public virtual string Complemento { get; set; }
         public virtual TipoLogradouro Tipo { get; set; }
-        public virtual int Comercial { get; set; }
-        public virtual int Bairro { get; set; }
-        public virtual int Cidade { get; set; }
-        public virtual int Estado { get; set; }
-        public int EnderecoId { get; set; }
-        public Endereco Endereco { get; set; }
+        public virtual string Bairro { get; set; }
+        public virtual string Cidade { get; set; }
+        public virtual string Estado { get; set; }
     }
 }

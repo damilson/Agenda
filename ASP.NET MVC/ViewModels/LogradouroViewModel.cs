@@ -1,13 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Web;
 using Util;
 
-namespace Negocio.Data
+namespace ASP.NET_MVC.ViewModels
 {
-    public class LogradouroDTO
+    public class LogradouroViewModel
     {
         public int LogradouroId { get; set; }
         public int Numero { get; set; }
@@ -16,6 +15,5 @@ namespace Negocio.Data
         public string Bairro { get; set; }
         public string Cidade { get; set; }
         public string Estado { get; set; }
-       
     }
 }

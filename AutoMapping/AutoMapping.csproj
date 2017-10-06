@@ -9,12 +9,12 @@
     <ProductVersion>
     </ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{37F0DEBA-FC81-45E5-9F51-4E348D446B11}</ProjectGuid>
+    <ProjectGuid>{D599C0AB-2FBB-477E-BBDE-BBCDF529D6CF}</ProjectGuid>
     <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Repositorio</RootNamespace>
-    <AssemblyName>Repositorio</AssemblyName>
+    <RootNamespace>AutoMapping</RootNamespace>
+    <AssemblyName>AutoMapping</AssemblyName>
     <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
     <UseIISExpress>true</UseIISExpress>
     <IISExpressSSLPort />
@@ -45,14 +45,6 @@
   <ItemGroup>
     <Reference Include="AutoMapper, Version=6.1.1.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
       <HintPath>..\packages\AutoMapper.6.1.1\lib\net45\AutoMapper.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
@@ -90,34 +82,22 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Configuracao\Context.cs" />
-    <Compile Include="Data\ContatoData.cs" />
-    <Compile Include="Data\IContatoData.cs" />
-    <Compile Include="Data\IPessoaData.cs" />
-    <Compile Include="Data\PessoaData.cs" />
-    <Compile Include="Migrations\201710061637348_InicializaBase.cs" />
-    <Compile Include="Migrations\201710061637348_InicializaBase.Designer.cs">
-      <DependentUpon>201710061637348_InicializaBase.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\Configuration.cs" />
-    <Compile Include="Model\Contato.cs" />
-    <Compile Include="Model\Endereco.cs" />
-    <Compile Include="Model\Logradouro.cs" />
-    <Compile Include="Model\Pessoa.cs" />
+    <Compile Include="AgendaMappingProfile.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Repositorio\IRepositorio.cs" />
-    <Compile Include="Repositorio\Repositorio.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Util\Util.csproj">
-      <Project>{00FB9521-4ECA-43E5-AD5C-2E13B6F8A326}</Project>
-      <Name>Util</Name>
+    <ProjectReference Include="..\ASP.NET MVC\ASP.NET MVC.csproj">
+      <Project>{E6930B50-3EB6-4B42-A70A-0A63542B6F1F}</Project>
+      <Name>ASP.NET MVC</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Migrations\201710061637348_InicializaBase.resx">
-      <DependentUpon>201710061637348_InicializaBase.cs</DependentUpon>
-    </EmbeddedResource>
+    <ProjectReference Include="..\Negocio\Negocio.csproj">
+      <Project>{CF20D1CB-D404-40BD-B3F7-B51AD7D2BCA2}</Project>
+      <Name>Negocio</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Repositorio\Repositorio.csproj">
+      <Project>{37F0DEBA-FC81-45E5-9F51-4E348D446B11}</Project>
+      <Name>Repositorio</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
@@ -132,9 +112,9 @@
         <WebProjectProperties>
           <UseIIS>True</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>62482</DevelopmentServerPort>
+          <DevelopmentServerPort>57971</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:62478/</IISUrl>
+          <IISUrl>http://localhost:57971/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>
