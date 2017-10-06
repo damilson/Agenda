@@ -1,0 +1,34 @@
+﻿@model UI.ViewModels.PessoaViewModel
+
+@if (Model.Pessoas.Count() != 0)
+{
+    <table>
+        <thead>
+            <tr>
+                <th></th>
+                <th>@Html.Label("Nome")</th>
+                <th>@Html.Label("Endereço")</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var pessoa in Model.Pessoas)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(x => pessoa.Nome)
+                    </td>
+                </tr>
+                foreach (var contato in pessoa.Contatos)
+                {
+                    <tr>
+                        <td>@Html.DisplayFor(x => contato.Nome)</td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <h3>@Html.Label("Não há nada a ser mostrado.")</h3>
+}

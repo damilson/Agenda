@@ -1,4 +1,5 @@
-﻿using ASP.NET_MVC.ViewModels;
+﻿using ASP.NET_MVC.Cors;
+using ASP.NET_MVC.ViewModels;
 using Negocio.Interfaces;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,14 +16,16 @@ namespace ASP.NET_MVC.Controllers
             _pessoaNegocio = pessoaNegocio;
         }
         // GET: Pessoa
+        //[AllowCrossSite]
         public JsonResult Index()
         {
             var listaPessoasDTO = _pessoaNegocio.Listar();
-            var listaPessoasViewModels = new List<PessoaViewModel>();
-            var listaContatos = new List<ContatoViewModel>();
-            var listaEnderecos = new List<EnderecoViewModel>();
+            var PVM = new PessoaViewModel();
+            PVM.Pessoas = new List<PessoaViewModel>();
+            PVM.Contatos = new List<ContatoViewModel>();
+            PVM.Enderecos = new List<EnderecoViewModel>();
 
-            listaEnderecos =
+            PVM.Enderecos =
                 listaPessoasDTO
                 .SelectMany(p => p.Enderecos)
                 .Select(endereco => new EnderecoViewModel
@@ -41,7 +44,7 @@ namespace ASP.NET_MVC.Controllers
                     }
                 }).ToList();
 
-            listaContatos = listaPessoasDTO
+            PVM.Contatos = listaPessoasDTO
                 .SelectMany(x => x.Contatos)
                 .Select(contato => new ContatoViewModel
                 {
@@ -51,65 +54,61 @@ namespace ASP.NET_MVC.Controllers
                     TipoContato = contato.TipoContato
                 }).ToList();
 
-            listaPessoasViewModels = listaPessoasDTO.Select(pessoa => new PessoaViewModel
+            PVM.Pessoas = listaPessoasDTO.Select(pessoa => new PessoaViewModel
             {
                 PessoaId = pessoa.PessoaId,
                 Nome = pessoa.Nome,
-                Enderecos = listaEnderecos,
-                Contatos = listaContatos
+                Enderecos = PVM.Enderecos,
+                Contatos = PVM.Contatos
             }).ToList();
 
-            return Json(listaPessoasViewModels, JsonRequestBehavior.AllowGet);
+            return new JsonResult{ Data = PVM, JsonRequestBehavior = JsonRequestBehavior.AllowGet } ;
         }
 
         // GET: Pessoa/Details/5
-        public ActionResult Details(int id)
+        public JsonResult Details(int id)
         {
-            return View();
-        }
-
-        // GET: Pessoa/Create
-        public ActionResult Create()
-        {
-            return View();
+            return Json(JsonRequestBehavior.AllowGet);
         }
 
         // POST: Pessoa/Create
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        public JsonResult Create(FormCollection collection)
         {
-            try
-            {
-                // TODO: Add insert logic here
+            //try
+            //{
+            //    // TODO: Add insert logic here
 
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
+            //    //return RedirectToAction("Index");
+            //}
+            //catch
+            //{
+            //}
+            return Json(JsonRequestBehavior.AllowGet);
         }
 
         // GET: Pessoa/Edit/5
-        public ActionResult Edit(int id)
+        public JsonResult Edit(int id)
         {
-            return View();
+            return Json(JsonRequestBehavior.AllowGet);
         }
 
         // POST: Pessoa/Edit/5
         [HttpPost]
         public ActionResult Edit(int id, FormCollection collection)
         {
-            try
-            {
-                // TODO: Add update logic here
+            //try
+            //{
+            //    // TODO: Add update logic here
 
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
+            //    return RedirectToAction("Index");
+            //}
+            //catch
+            //{
+            //    return View();
+            //}
+
+            return Json(JsonRequestBehavior.AllowGet);
         }
 
         // GET: Pessoa/Delete/5

@@ -15,6 +15,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InjectionDependence", "Inje
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ASP.NET MVC", "ASP.NET MVC\ASP.NET MVC.csproj", "{E6930B50-3EB6-4B42-A70A-0A63542B6F1F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UI", "UI\UI.csproj", "{9E208C41-3931-4A89-A100-3D405453B932}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -45,6 +47,10 @@ Global
 		{E6930B50-3EB6-4B42-A70A-0A63542B6F1F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E6930B50-3EB6-4B42-A70A-0A63542B6F1F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E6930B50-3EB6-4B42-A70A-0A63542B6F1F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9E208C41-3931-4A89-A100-3D405453B932}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9E208C41-3931-4A89-A100-3D405453B932}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9E208C41-3931-4A89-A100-3D405453B932}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9E208C41-3931-4A89-A100-3D405453B932}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
