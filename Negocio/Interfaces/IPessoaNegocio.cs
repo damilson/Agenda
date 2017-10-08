@@ -12,5 +12,7 @@ namespace Negocio.Interfaces
         void Deletar(int Id);
 
         void Editar(PessoaDTO pessoa);
+
+        PessoaDTO Buscar(int Id);
     }
 }

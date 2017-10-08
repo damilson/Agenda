@@ -25,7 +25,10 @@
                             <b>@Html.DisplayFor(x => endereco.EnderecoNome)</b>
                         }
                     </td>
-                    <td class="text-center"><b><span class="glyphicon glyphicon-trash" onclick="deletar(@pessoa.PessoaId)"></span></b></td>
+                    <td class="text-center">
+                        <b><span class="glyphicon glyphicon-edit" onclick="detalhe(@pessoa.PessoaId)"></span></b>
+                        <b><span class="glyphicon glyphicon-trash" onclick="deletar(@pessoa.PessoaId)"></span></b>
+                    </td>
 
                 </tr>
                 <tr class="pessoa_@pessoa.PessoaId hidden agrupado">

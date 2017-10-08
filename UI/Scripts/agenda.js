@@ -20,8 +20,38 @@
 
 });
 
+detalhe = function (Id) {
+    $.post("http://localhost:62568/Pessoa/Details",
+        {id:Id},
+        function (Data) {
+            if (Data != null) {
+                $.post("Home/Details",
+                        { model :Data },
+                        function (View) {
+                            $("#detalhes").html(View);
+                            $("#myModalEdit").modal({ backdrop: "static" });
+                        });
+                setTimeout(function () {
+                    $("#myModalBlock").modal("hide");
+                }, 4000);
+            }
+            else {
+                $("#myModalBlock").modal("hide");
+                alert("Algo deu errado");
+            }
+        });
+}
+
+editar = function (Id) {
+    $.post("http://localhost:62568/Pessoa/Details",
+        function (Data) {
+            if (Data != null) {
+
+            }
+        });
+};
+
 deletar = function (Id) {
-    //var id = Id;
     BootstrapDialog.confirm({
         title: 'Atenção',
         message: 'Deseja realmente excluir?',
@@ -34,12 +64,12 @@ deletar = function (Id) {
         btnOKClass: 'btn-success',
         callback: function (result) {
             if (result) {
-                $.post("http://localhost:62568/Pessoa/Delete", { id: Id},
+                $.post("http://localhost:62568/Pessoa/Delete", { id: Id },
                     function (Data) {
                         if (Data.Sucesso) {
                             alert(Data.Mensagem)
                             window.location.reload();
-                        } 
+                        }
                     });
             } else {
                 return;

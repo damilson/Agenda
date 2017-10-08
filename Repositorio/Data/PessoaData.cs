@@ -35,6 +35,13 @@ namespace Repositorio.Data
             var pessoas = _repositorio.List<Pessoa>().ToList();
 
             return pessoas;
-        }                                                        
+        }                     
+        
+        public Pessoa Buscar(int Id)
+        {
+            var pessoa = _repositorio.Find<Pessoa>(x => x.PessoaId == Id);
+
+            return pessoa;
+        }                                   
     }
 }

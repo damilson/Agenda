@@ -17,23 +17,20 @@ namespace UI.Controllers
 
         public ActionResult RetornaTabela(PessoaViewModel model)
         {
-            //var PVM = new PessoaViewModel();
-            //var listaPessoas = new List<Pessoa>();
-            //foreach (var pessoa in model.Pessoas)
-            //{
-            //    listaPessoas.Add(
-            //        new Pessoa()
-            //        {
-            //            PessoaId = model.PessoaId,
-            //            Nome = model.Nome,
-            //            Contatos = model.Contatos,
-            //            Enderecos = model.Enderecos
-            //        }
-            //    );
-            //}
-            //PVM.Pessoas = listaPessoas;
-
             return PartialView("_Tabela", model);
+        }
+
+        public ActionResult Details(PessoaViewModel model)
+        {
+            var PVM = new PessoaViewModel()
+            {
+                Id = model.Pessoa.PessoaId,
+                Nome = model.Pessoa.Nome,
+                Enderecos = model.Pessoa.Enderecos,
+                Contatos = model.Pessoa.Contatos
+            };
+
+            return PartialView("_Editar", PVM);
         }
     }
 }

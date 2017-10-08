@@ -7,7 +7,8 @@ namespace UI.ViewModels
 {
     public class PessoaViewModel
     {
-        public List<Pessoa> Pessoas { get; set; }
+
+        public int Id { get; set; }
 
         [Display(Name =@"Nome")]
         public string Nome { get; set; }
@@ -32,5 +33,10 @@ namespace UI.ViewModels
 
         [Display(Name =@"Estado")]
         public string Estado { get; set; }
+
+        public List<Pessoa> Pessoas { get; set; }
+        public List<Endereco> Enderecos { get; set; }
+        public List<Contato> Contatos { get; set; }
+        public Pessoa Pessoa { get; set; }
     }
 }

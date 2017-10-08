@@ -1,0 +1,53 @@
+﻿@model UI.ViewModels.PessoaViewModel
+
+<div class="modal fade" id="myModalEdit" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Cadastro de pessoa</h4>
+            </div>'
+            <div class="modal-body">
+                @using (Html.BeginForm(null, null, FormMethod.Post, new { id = "form-mvc" }))
+                {
+                    @Html.HiddenFor(x => x.Id)
+                    @Html.LabelFor(x => x.Nome)
+                    @Html.EditorFor(x => x.Nome, new { htmlAttributes = new { @class = "form-control" } })
+
+                    if (Model != null)
+                    {
+                        foreach (var endereco in Model.Enderecos)
+                        {
+                            @Html.LabelFor(x => x.Endereco)
+                            @Html.EditorFor(x => endereco.EnderecoNome, new { htmlAttributes = new { @class = "form-control" } })
+
+                            @Html.LabelFor(x => x.Numero)
+                            @Html.EditorFor(x => endereco.Logradouro.Numero, new { htmlAttributes = new { @class = "form-control" } })
+
+                            @Html.LabelFor(x => x.Bairro)
+                            @Html.EditorFor(x => endereco.Logradouro.Bairro, new { htmlAttributes = new { @class = "form-control" } })
+
+                            @Html.LabelFor(x => x.Cidade)
+                            @Html.EditorFor(x => endereco.Logradouro.Cidade, new { htmlAttributes = new { @class = "form-control" } })
+
+                            @Html.LabelFor(x => x.Estado)
+                            @Html.EditorFor(x => endereco.Logradouro.Estado, new { htmlAttributes = new { @class = "form-control" } })
+
+                            @Html.LabelFor(x => x.Tipo)
+                            @Html.EnumDropDownListFor(x => endereco.Logradouro.Tipo, new { @class = "form-control" })
+
+                            @Html.LabelFor(x => x.Complemento)
+                            @Html.EditorFor(x => endereco.Logradouro.Complemento, new { htmlAttributes = new { @class = "form-control" } })
+                        }
+                    }
+
+                }
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                <button type="submit" class="btn btn-success" onclick="salvarForm()">Salvar</button>
+            </div>
+        </div>
+    </div>
+</div>

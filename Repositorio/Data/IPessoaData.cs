@@ -16,5 +16,7 @@ namespace Repositorio.Data
         void Deletar(int Id);
 
         void Editar(Pessoa pessoa);
+
+        Pessoa Buscar(int Id);
     }
 }

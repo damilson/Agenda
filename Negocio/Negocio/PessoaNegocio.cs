@@ -33,9 +33,11 @@ namespace Negocio.Negocio
             _pessoa.Deletar(Id);
         }
 
-        public void Editar(PessoaDTO pessoa)
+        public void Editar(PessoaDTO pessoaDTO)
         {
-            throw new NotImplementedException();
+            var pessoa = _mapper.Map<PessoaDTO, Pessoa>(pessoaDTO);
+
+            _pessoa.Editar(pessoa);
         }
 
         public List<PessoaDTO> Listar()
@@ -46,9 +48,13 @@ namespace Negocio.Negocio
             return clienteView;
         }
 
-        public static object ChangeType(object value, Type conversionType)
+        public PessoaDTO Buscar(int Id)
         {
-            return value;
+            var pessoa = _pessoa.Buscar(Id);
+
+            var pessoaDTO = _mapper.Map<Pessoa, PessoaDTO>(pessoa);
+
+            return pessoaDTO;
         }
     }
 }
