@@ -2,27 +2,49 @@
 
 @if (Model.Pessoas.Count() != 0)
 {
-    <table>
+    <table class="table table-bordered">
         <thead>
             <tr>
                 <th></th>
                 <th>@Html.Label("Nome")</th>
                 <th>@Html.Label("Endereço")</th>
+                <th class="text-center"><span class="glyphicon glyphicon-plus" data-toggle="modal" data-target="#myModal"></span></th>
             </tr>
         </thead>
         <tbody>
             @foreach (var pessoa in Model.Pessoas)
             {
-                <tr>
+                <tr class="agrupador">
+                    <td class="text-center" style="cursor:pointer" onclick="arupador(@pessoa.PessoaId)"><span class="glyphicon glyphicon-plus pessoa_@pessoa.PessoaId"></span><span class="glyphicon glyphicon-minus pessoa_@pessoa.PessoaId hidden"></span></td>
                     <td>
-                        @Html.DisplayFor(x => pessoa.Nome)
+                        <b>@Html.DisplayFor(x => pessoa.Nome)</b>
                     </td>
+                    <td>
+                        @foreach (var endereco in pessoa.Enderecos)
+                        {
+                            <b>@Html.DisplayFor(x => endereco.EnderecoNome)</b>
+                        }
+                    </td>
+                    <td class="text-center"><b><span class="glyphicon glyphicon-trash" onclick="deletar(@pessoa.PessoaId)"></span></b></td>
+
                 </tr>
-                foreach (var contato in pessoa.Contatos)
+                <tr class="pessoa_@pessoa.PessoaId hidden agrupado">
+                    <td></td>
+                    <td>Contato</td>
+                    <td></td>
+                    <td class="text-center"><span class="glyphicon glyphicon-plus" data-toggle="modal" data-target="#myModal"></span></td>
+                </tr>
+                if (pessoa.Contatos != null)
                 {
-                    <tr>
-                        <td>@Html.DisplayFor(x => contato.Nome)</td>
-                    </tr>
+                    foreach (var contato in pessoa.Contatos)
+                    {
+                        <tr class="pessoa_@pessoa.PessoaId hidden sub-agrupado">
+                            <td></td>
+                            <td>@Html.DisplayFor(x => contato.Nome)</td>
+                            <td></td>
+                            <td class="text-center"><b><span class="glyphicon glyphicon-trash"></span></b></td>
+                        </tr>
+                    }
                 }
             }
         </tbody>

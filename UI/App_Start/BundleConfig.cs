@@ -21,6 +21,7 @@ namespace UI
 
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
                       "~/Scripts/bootstrap.js",
+                      "~/Scripts/bootstrap-dialog.js",
                       "~/Scripts/respond.js",
                       "~/Scripts/agenda.js"));
 

@@ -25,3 +25,24 @@ textarea {
 #dynamicTabs{
     margin-top:10%;
 }
+
+thead th{
+    background-color: #000000;
+    color: #ffffff;
+}
+tbody .agrupador{
+    background-color: #808080;
+}
+tbody .agrupado{
+    background-color: #C0C0C0;
+}
+tbody .sub-agrupado{
+    background-color: #D3D3D3;
+}
+.loading{
+    width:30%;
+    height:30%;
+}
+td span b .glyphicon{
+    cursor:pointer;
+}

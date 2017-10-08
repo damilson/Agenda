@@ -23,12 +23,14 @@ namespace Negocio.Negocio
 
         public void Cadastrar(PessoaDTO pessoa)
         {
-            throw new NotImplementedException();
+            var pessoaData = _mapper.Map<PessoaDTO, Pessoa>(pessoa);
+
+            _pessoa.Cadastrar(pessoaData);
         }
 
         public void Deletar(int Id)
         {
-            throw new NotImplementedException();
+            _pessoa.Deletar(Id);
         }
 
         public void Editar(PessoaDTO pessoa)
