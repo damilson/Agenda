@@ -13,10 +13,12 @@ namespace ASP.NET_MVC.Controllers
     public class PessoaController : Controller
     {
         private readonly IPessoaNegocio _pessoaNegocio;
+        private readonly IEnderecoNegocio _enderecoNegocio;
 
-        public PessoaController(IPessoaNegocio pessoaNegocio)
+        public PessoaController(IPessoaNegocio pessoaNegocio, IEnderecoNegocio enderecoNegocio)
         {
             _pessoaNegocio = pessoaNegocio;
+            _enderecoNegocio = enderecoNegocio;
         }
 
         public JsonResult Index()
@@ -28,12 +30,13 @@ namespace ASP.NET_MVC.Controllers
             {
                 PessoaId = pessoa.PessoaId,
                 Nome = pessoa.Nome,
-                Contatos = pessoa.Contatos.Where(x => x.PessoaId == pessoa.PessoaId).Select(contato => new Contato
+                Contatos = pessoa.Contatos.Where(x => x.PessoaId == pessoa.PessoaId).OrderBy(x => x.Agrupador).Select(contato => new Contato
                 {
                     Nome = contato.Nome,
                     TipoContato = contato.TipoContato,
                     Agrupador = contato.Agrupador,
-                    ContatoId = contato.ContatoId
+                    ContatoId = contato.ContatoId,
+                    Tipo = contato.Tipo
                 }).ToList(),
                 Enderecos = pessoa.Enderecos.Where(x => x.PessoaId == pessoa.PessoaId).Select(endereco => new Endereco
                 {
@@ -98,8 +101,39 @@ namespace ASP.NET_MVC.Controllers
 
         public JsonResult Create(FormCollection collection)
         {
+            var nome = collection["Nome"].ToString();
+            var endereco = collection["Endereco"].ToString().Split(',');
+            var cidade = collection["Cidade"].ToString().Split(',');
+            var numero = collection["Numero"].ToString().Split(',');
+            var estado = collection["Estado"].ToString().Split(',');
+            var tipo = collection["Tipo"].ToString().Split(',');
+            var bairro = collection["Bairro"].ToString().Split(',');
+            var complemento = collection["Complemento"].ToString().Split(',');
 
-            var pessoa = RetornaPessoaDTO(collection);
+            var listaEndereco = new List<EnderecoDTO>();
+
+            for (int i = 0; i < endereco.Length; i++)
+            {
+                listaEndereco.Add(new EnderecoDTO
+                {
+                    EnderecoNome = endereco[i],
+                    Logradouro = new LogradouroDTO
+                    {
+                        Numero = int.Parse(numero[i]),
+                        Cidade = cidade[i],
+                        Bairro = bairro[i],
+                        Estado = estado[i],
+                        Tipo = (TipoLogradouro)int.Parse(tipo[i]),
+                        Complemento = complemento[i]
+                    }
+                });
+            }
+
+            var pessoa = new PessoaDTO()
+            {
+                Nome = nome,
+                Enderecos = listaEndereco
+            };
 
             try
             {
@@ -113,19 +147,55 @@ namespace ASP.NET_MVC.Controllers
 
         }
 
-        // GET: Pessoa/Edit/5
-        public JsonResult Edit(int id)
-        {
-            return Json(JsonRequestBehavior.AllowGet);
-        }
-
         // POST: Pessoa/Edit/5
-        [HttpPost]
-        public JsonResult Edit(int id, FormCollection collection)
+        //[HttpPost]
+        public JsonResult Edit(FormCollection collection)
         {
-            var pessoa = RetornaPessoaDTO(collection);
-            pessoa.PessoaId = id;
+            var pessoaId = collection["Id"].ToString();
+            var nome = collection["Nome"].ToString();
+            var enderecoId = collection["EnderecoId"].ToString().Split(',');
+            var endereco = collection["Endereco"].ToString().Split(',');
+            var logradouroId = collection["LogradouroId"].ToString().Split(',');
+            var cidade = collection["Cidade"].ToString().Split(',');
+            var numero = collection["Numero"].ToString().Split(',');
+            var estado = collection["Estado"].ToString().Split(',');
+            var tipo = collection["Tipo"].ToString().Split(',');
+            var bairro = collection["Bairro"].ToString().Split(',');
+            var complemento = collection["Complemento"].ToString().Split(',');
 
+            var listaEndereco = new List<EnderecoDTO>();
+
+            for (int i = 0; i < endereco.Length; i++)
+            {
+
+                listaEndereco.Add(new EnderecoDTO
+                {
+                    EnderecoId = enderecoId[i].Equals("") ? 0 : int.Parse(enderecoId[i]),
+                    EnderecoNome = endereco[i],
+                    Logradouro = new LogradouroDTO
+                    {
+                        LogradouroId = logradouroId[i].Equals("") ? 0 : int.Parse(logradouroId[i]),
+                        Numero = int.Parse(numero[i]),
+                        Cidade = cidade[i],
+                        Bairro = bairro[i],
+                        Estado = estado[i],
+                        Tipo = (TipoLogradouro)int.Parse(tipo[i]),
+                        Complemento = complemento[i],
+                        EnderecoId = enderecoId[i].Equals("") ? 0 : int.Parse(enderecoId[i])
+                    },
+                    PessoaId = int.Parse(pessoaId.ToString()),
+                    LogradouroId = logradouroId[i].Equals("") ? 0 : int.Parse(logradouroId[i]),
+                    
+                });
+            }
+
+            var pessoa = new PessoaDTO()
+            {
+                PessoaId = int.Parse(collection["Id"].ToString()),
+                Nome = nome,
+                Enderecos = listaEndereco
+            };
+            
             try
             {
                 _pessoaNegocio.Editar(pessoa);
@@ -153,8 +223,11 @@ namespace ASP.NET_MVC.Controllers
 
         private PessoaDTO RetornaPessoaDTO(FormCollection collection)
         {
+            var pessoaId = collection["Id"].ToString();
             var nome = collection["Nome"].ToString();
+            var enderecoId = collection["EnderecoId"].ToString().Split(',');
             var endereco = collection["Endereco"].ToString().Split(',');
+            var logradouroId = collection["LogradouroId"].ToString().Split(',');
             var cidade = collection["Cidade"].ToString().Split(',');
             var numero = collection["Numero"].ToString().Split(',');
             var estado = collection["Estado"].ToString().Split(',');
@@ -166,18 +239,23 @@ namespace ASP.NET_MVC.Controllers
 
             for (int i = 0; i < endereco.Length; i++)
             {
+
                 listaEndereco.Add(new EnderecoDTO
                 {
+                    EnderecoId = enderecoId[i].Equals("") ? 0 : int.Parse(enderecoId[i]),
                     EnderecoNome = endereco[i],
                     Logradouro = new LogradouroDTO
                     {
+                        LogradouroId = logradouroId[i].Equals("") ? 0 : int.Parse(logradouroId[i]),
                         Numero = int.Parse(numero[i]),
                         Cidade = cidade[i],
                         Bairro = bairro[i],
                         Estado = estado[i],
                         Tipo = (TipoLogradouro)int.Parse(tipo[i]),
                         Complemento = complemento[i]
-                    }
+                    },
+                    PessoaId = int.Parse(pessoaId.ToString()),
+                    LogradouroId = logradouroId[i].Equals("") ? 0 : int.Parse(logradouroId[i])
                 });
             }
 

@@ -10,7 +10,6 @@
             <div class="modal-body">
                 @using (Html.BeginForm(null, null, FormMethod.Post, new { id="form-mvc" }))
                 {
-                    @Html.HiddenFor(x => x.Id)
                     @Html.LabelFor(x => x.Nome)
                     @Html.EditorFor(x => x.Nome, new { htmlAttributes = new { @class = "form-control" } })
 

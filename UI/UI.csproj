@@ -129,7 +129,6 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\PessoasController.cs" />
     <Compile Include="Enumeradores\Enumerador.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -173,6 +172,8 @@
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.mask.js" />
+    <Content Include="Scripts\jquery.mask.min.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
@@ -199,8 +200,8 @@
     <Content Include="Views\Home\_Cadastro.cshtml" />
     <Content Include="Views\Shared\_Block.cshtml" />
     <Content Include="Views\Home\_Editar.cshtml" />
-    <Content Include="Views\Pessoas\Edit.cshtml" />
-    <Content Include="Views\Pessoas\Create.cshtml" />
+    <Content Include="Views\Home\_CadastroContato.cshtml" />
+    <Content Include="Views\Home\_EditarContato.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

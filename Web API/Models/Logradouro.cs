@@ -1,8 +1,12 @@
-﻿using Util;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using Util;
 
-namespace Negocio.Data
+namespace Web_API.Model
 {
-    public class LogradouroDTO
+    public class Logradouro
     {
         public int LogradouroId { get; set; }
         public int Numero { get; set; }
@@ -11,6 +15,5 @@ namespace Negocio.Data
         public string Bairro { get; set; }
         public string Cidade { get; set; }
         public string Estado { get; set; }
-        public int EnderecoId { get; set; }
     }
 }

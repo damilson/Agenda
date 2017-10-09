@@ -15,5 +15,6 @@ namespace Repositorio.Model
         public virtual string Bairro { get; set; }
         public virtual string Cidade { get; set; }
         public virtual string Estado { get; set; }
+        public virtual int EnderecoId { get; set; }
     }
 }

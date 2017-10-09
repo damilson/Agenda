@@ -15,6 +15,7 @@ namespace Repositorio.Migrations
                         Nome = c.String(),
                         TipoContato = c.Int(nullable: false),
                         Agrupador = c.Int(nullable: false),
+                        Tipo = c.String(),
                         PessoaId = c.Int(nullable: false),
                     })
                 .PrimaryKey(t => t.ContatoId)
@@ -44,19 +45,20 @@ namespace Repositorio.Migrations
                 .ForeignKey("dbo.Pessoas", t => t.PessoaId, cascadeDelete: true)
                 .Index(t => t.PessoaId)
                 .Index(t => t.LogradouroId);
-            
+
             CreateTable(
                 "dbo.Logradouroes",
                 c => new
-                    {
-                        LogradouroId = c.Int(nullable: false, identity: true),
-                        Numero = c.Int(nullable: false),
-                        Complemento = c.String(),
-                        Tipo = c.Int(nullable: false),
-                        Bairro = c.String(),
-                        Cidade = c.String(),
-                        Estado = c.String(),
-                    })
+                {
+                    LogradouroId = c.Int(nullable: false, identity: true),
+                    Numero = c.Int(nullable: false),
+                    Complemento = c.String(),
+                    Tipo = c.Int(nullable: false),
+                    Bairro = c.String(),
+                    Cidade = c.String(),
+                    Estado = c.String(),
+                    EnderecoId = c.Int(nullable: false),
+                })
                 .PrimaryKey(t => t.LogradouroId);
             
         }

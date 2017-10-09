@@ -99,9 +99,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Interfaces\IContatoNegocio.cs" />
+    <Compile Include="Interfaces\IEnderecoNegocio.cs" />
     <Compile Include="Interfaces\IPessoaNegocio.cs" />
     <Compile Include="Mappers\AgendaMappingProfile.cs" />
     <Compile Include="Negocio\ContatoNegocio.cs" />
+    <Compile Include="Negocio\EnderecoNegocio.cs" />
     <Compile Include="Negocio\PessoaNegocio.cs" />
     <Compile Include="PessoaDTO\ContatoDTO.cs" />
     <Compile Include="PessoaDTO\EnderecoDTO.cs" />

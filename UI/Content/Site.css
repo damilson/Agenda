@@ -46,3 +46,10 @@ tbody .sub-agrupado{
 td span b .glyphicon{
     cursor:pointer;
 }
+
+.titulo{
+    background-color:#808080;
+    padding:1%;
+    color:#ffffff;
+    margin:1%;
+}

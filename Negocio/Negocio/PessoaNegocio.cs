@@ -1,10 +1,7 @@
 ﻿using Negocio.Interfaces;
-using System;
 using System.Collections.Generic;
 using Negocio.Data;
-using Repositorio.Repositorio;
 using Repositorio.Model;
-using System.Linq;
 using AutoMapper;
 using Repositorio.Data;
 
@@ -13,11 +10,16 @@ namespace Negocio.Negocio
     public class PessoaNegocio : IPessoaNegocio
     {
         private readonly IPessoaData _pessoa;
+        private readonly IEnderecoData _endereco;
+        private readonly ILogradouroData _logradouro;
+
         private readonly IMapper _mapper;
 
         public PessoaNegocio(IMapper mapper)
         {
             _pessoa= new PessoaData();
+            _endereco = new EnderecoData();
+            _logradouro = new LogradoruoData();
             _mapper = mapper;
         }
 
@@ -36,6 +38,16 @@ namespace Negocio.Negocio
         public void Editar(PessoaDTO pessoaDTO)
         {
             var pessoa = _mapper.Map<PessoaDTO, Pessoa>(pessoaDTO);
+
+            var listanderecoData = new List<Endereco>();
+            foreach (var endereco in pessoaDTO.Enderecos)
+            {
+                var enderecoData = _mapper.Map<EnderecoDTO, Endereco>(endereco);
+                var logradouroData = _mapper.Map<LogradouroDTO, Logradouro>(endereco.Logradouro);
+
+                _endereco.Editar(enderecoData);
+                _logradouro.Editar(logradouroData);
+            }
 
             _pessoa.Editar(pessoa);
         }

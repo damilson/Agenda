@@ -5,39 +5,47 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">Cadastro de pessoa</h4>
+                <h4 class="modal-title">Editar</h4>
             </div>'
             <div class="modal-body">
-                @using (Html.BeginForm(null, null, FormMethod.Post, new { id = "form-mvc" }))
+                @using (Html.BeginForm(null, null, FormMethod.Post, new { id = "edit-form-mvc" }))
                 {
+                    <div class="row titulo text-center">
+                        <b>@Html.LabelFor(x => x.Nome)</b>
+                    </div>
                     @Html.HiddenFor(x => x.Id)
                     @Html.LabelFor(x => x.Nome)
                     @Html.EditorFor(x => x.Nome, new { htmlAttributes = new { @class = "form-control" } })
 
+                    <div class="row titulo text-center">
+                        <b>@Html.LabelFor(x => x.Endereco)</b>
+                    </div>
                     if (Model != null)
                     {
                         foreach (var endereco in Model.Enderecos)
                         {
+                            @Html.HiddenFor(x => endereco.EnderecoId, new { Name = "EnderecoId"})
+                            @Html.HiddenFor(x => endereco.Logradouro.LogradouroId, new { Name = "LogradouroId"})
                             @Html.LabelFor(x => x.Endereco)
-                            @Html.EditorFor(x => endereco.EnderecoNome, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.EditorFor(x => endereco.EnderecoNome, new { htmlAttributes = new { @class = "form-control", Name = "Endereco" } })
 
                             @Html.LabelFor(x => x.Numero)
-                            @Html.EditorFor(x => endereco.Logradouro.Numero, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.EditorFor(x => endereco.Logradouro.Numero, new { htmlAttributes = new { @class = "form-control", Name = "Numero"} })
 
                             @Html.LabelFor(x => x.Bairro)
-                            @Html.EditorFor(x => endereco.Logradouro.Bairro, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.EditorFor(x => endereco.Logradouro.Bairro, new { htmlAttributes = new { @class = "form-control", Name = "Bairro" } })
 
                             @Html.LabelFor(x => x.Cidade)
-                            @Html.EditorFor(x => endereco.Logradouro.Cidade, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.EditorFor(x => endereco.Logradouro.Cidade, new { htmlAttributes = new { @class = "form-control", Name = "Cidade" } })
 
                             @Html.LabelFor(x => x.Estado)
-                            @Html.EditorFor(x => endereco.Logradouro.Estado, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.EditorFor(x => endereco.Logradouro.Estado, new { htmlAttributes = new { @class = "form-control", Name = "Estado" } })
 
                             @Html.LabelFor(x => x.Tipo)
-                            @Html.EnumDropDownListFor(x => endereco.Logradouro.Tipo, new { @class = "form-control" })
+                            @Html.EnumDropDownListFor(x => endereco.Logradouro.Tipo, new { @class = "form-control", Name = "Tipo" })
 
                             @Html.LabelFor(x => x.Complemento)
-                            @Html.EditorFor(x => endereco.Logradouro.Complemento, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.EditorFor(x => endereco.Logradouro.Complemento, new { htmlAttributes = new { @class = "form-control", Name = "Complemento" } })
                         }
                     }
 
@@ -46,7 +54,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
-                <button type="submit" class="btn btn-success" onclick="salvarForm()">Salvar</button>
+                <button type="submit" class="btn btn-success" onclick="editar(@Model.Id)">Salvar</button>
             </div>
         </div>
     </div>

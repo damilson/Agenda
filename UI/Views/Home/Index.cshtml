@@ -4,24 +4,32 @@
 
 <div id="dynamicTabs">
     <ul class="nav nav-tabs">
-        <li class="active"><a data-toggle="tab" href="#mvc">Agenda ASP.NET MVC</a></li>
-        <li><a data-toggle="tab" href="#webapi">Agenda WEB API</a></li>
+        <li class="active" id="tab-mvc"><a data-toggle="tab" href="#mvc" onclick="montatabelaMvc()">Agenda ASP.NET MVC</a></li>
+        <li id="tab-webapi"><a data-toggle="tab" href="#webapi" onclick="montaTabelaWebApi()">Agenda WEB API</a></li>
     </ul>
 
     <div class="tab-content">
         <div id="mvc" class="tab-pane fade in active">
             <h3>ASP.NET MVC</h3>
+            <button type="button" data-toggle="modal" data-target="#myModal">Adicionar pessoa &ensp;<span class="glyphicon glyphicon-plus"></span></button>
             <div id="tabelamvc">
-
             </div>
         </div>
         <div id="webapi" class="tab-pane fade">
-            <h3>Menu 1</h3>
-            <p>Some content in menu 1.</p>
+            <h3>WEB API</h3>
+            <button type="button" data-toggle="modal" data-target="#myModal">Adicionar pessoa &ensp;<span class="glyphicon glyphicon-plus"></span></button>
+            <div id="tabelawebapi">
+            </div>
         </div>
     </div>
 </div>
 <div id="detalhes">
-@RenderPage("~/Views/Home/_Editar.cshtml", Model)
+    @if(Model != null)
+    {
+        @RenderPage("~/Views/Home/_Editar.cshtml", Model)
+    }
+</div>
+<div id="cadastroContato">
+    @RenderPage("~/Views/Home/_CadastroContato.cshtml")
 </div>
 @RenderPage("~/Views/Home/_Cadastro.cshtml")

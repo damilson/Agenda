@@ -2,6 +2,7 @@
 using Repositorio.Model;
 using Repositorio.Repositorio;
 using System.Linq;
+using System;
 
 namespace Repositorio.Data
 {
@@ -12,6 +13,11 @@ namespace Repositorio.Data
         public ContatoData()
         {
             _repositorio = new Repositorio.Repositorio();
+        }
+
+        public Contato Buscar(int Id)
+        {
+            return _repositorio.Find<Contato>(x => x.ContatoId == Id);
         }
 
         public void Cadastrar(Contato contato)

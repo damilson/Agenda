@@ -92,12 +92,16 @@
   <ItemGroup>
     <Compile Include="Configuracao\Context.cs" />
     <Compile Include="Data\ContatoData.cs" />
+    <Compile Include="Data\EnderecoData.cs" />
     <Compile Include="Data\IContatoData.cs" />
+    <Compile Include="Data\IEnderecoData.cs" />
+    <Compile Include="Data\ILogradouroData.cs" />
     <Compile Include="Data\IPessoaData.cs" />
+    <Compile Include="Data\LogradoruoData.cs" />
     <Compile Include="Data\PessoaData.cs" />
-    <Compile Include="Migrations\201710061637348_InicializaBase.cs" />
-    <Compile Include="Migrations\201710061637348_InicializaBase.Designer.cs">
-      <DependentUpon>201710061637348_InicializaBase.cs</DependentUpon>
+    <Compile Include="Migrations\201710090240557_InicializaBase.cs" />
+    <Compile Include="Migrations\201710090240557_InicializaBase.Designer.cs">
+      <DependentUpon>201710090240557_InicializaBase.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Model\Contato.cs" />
@@ -115,8 +119,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201710061637348_InicializaBase.resx">
-      <DependentUpon>201710061637348_InicializaBase.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201710090240557_InicializaBase.resx">
+      <DependentUpon>201710090240557_InicializaBase.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -17,6 +17,7 @@ namespace UI.Controllers
 
         public ActionResult RetornaTabela(PessoaViewModel model)
         {
+            model.Pessoa = new Pessoa();
             return PartialView("_Tabela", model);
         }
 
@@ -31,6 +32,30 @@ namespace UI.Controllers
             };
 
             return PartialView("_Editar", PVM);
+        }
+
+        public ActionResult CadastroContato(int id)
+        {
+            var CVM = new ContatoViewModel()
+            {
+                PessoaId = id
+            };
+
+            return PartialView("_CadastroContato",CVM);
+        }
+
+        public ActionResult DetailsContato(ContatoViewModel model)
+        {
+            var CVM = new ContatoViewModel()
+            {
+                ContatoId = model.ContatoId,
+                Nome = model.Nome,
+                TipoContato = model.TipoContato,
+                Agrupador = model.Agrupador,
+                Tipo = model.Tipo,
+                PessoaId = model.PessoaId
+            };
+            return PartialView("_EditarContato", CVM);
         }
     }
 }

@@ -34,6 +34,9 @@ namespace UI.ViewModels
         [Display(Name =@"Estado")]
         public string Estado { get; set; }
 
+        [Display(Name =@"Contato")]
+        public string Contato { get; set; }
+
         public List<Pessoa> Pessoas { get; set; }
         public List<Endereco> Enderecos { get; set; }
         public List<Contato> Contatos { get; set; }

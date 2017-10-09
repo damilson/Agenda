@@ -1,8 +1,8 @@
 ﻿using Util;
 
-namespace Negocio.Data
+namespace Web_API.Model
 {
-    public class ContatoDTO
+    public class Contato
     {
         public int ContatoId { get; set; }
 
@@ -15,6 +15,6 @@ namespace Negocio.Data
         public string Tipo { get; set; }
 
         public int PessoaId { get; set; }
-        public PessoaDTO Pessoa { get; set; }
+        public Pessoa Pessoa { get; set; }
     }
 }

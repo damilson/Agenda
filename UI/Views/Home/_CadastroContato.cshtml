@@ -1,0 +1,54 @@
+﻿@model UI.ViewModels.ContatoViewModel
+
+<div class="modal fade" id="myModalCadastroContato" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Cadastro de contato</h4>
+            </div>
+            <div class="modal-body">
+                @using (Html.BeginForm(null, null, FormMethod.Post, new { id = "form-contato-mvc" }))
+                {
+                    @Html.HiddenFor(x => x.PessoaId, new { Name = "PessoaId"})
+
+                    @Html.LabelFor(x => x.Nome)
+                    @Html.EditorFor(x => x.Nome, new { htmlAttributes = new { @class = "form-control" } })
+
+                    @Html.LabelFor(x => x.TipoContato)
+                    @Html.EnumDropDownListFor(x => x.TipoContato, "Selecione o tipo de contato",  new { @class = "form-control" })
+
+                    @Html.LabelFor(x => x.Tipo)
+                    @Html.EditorFor(x => x.Tipo, new { htmlAttributes = new { @class = "form-control" , Id = "tipo"}})
+
+                    @Html.LabelFor(x => x.Agrupador)
+                    @Html.EnumDropDownListFor(x => x.Agrupador, new { @class = "form-control" } )
+                }
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                <button type="submit" class="btn btn-success" onclick="salvarFormContato()">Salvar</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $("#tipo").mask('00000-0000');
+
+    $("#TipoContato").change(function () {
+        if ($("tipoContato :selected").val() == 0 && $("#TipoContato :selected").text() == "Selecione o tipo de contato") {
+            $("#tipo").mask('00000-0000');
+        } else if ($("#TipoContato :selected").val() == 1) {
+            $("#tipo").mask('0000-0000');
+        } else if ($("#TipoContato :selected").val() == 2) {
+            $("#tipo").mask('0000-0000');
+        } else if ($("#TipoContato :selected").val() == 3) {
+            $("#tipo").prop("type", "email");
+        } else if ($("#TipoContato :selected").val() == 4) {
+            $("#tipo").mask('0000-0000');
+        } else if ($("#TipoContato :selected").val() == 5) {
+            $("#tipo").mask('0000-0000');
+        }
+    })
+</script>

@@ -12,5 +12,7 @@ namespace Repositorio.Data
         void Deletar(int Id);
 
         void Editar(Contato contato);
+
+        Contato Buscar(int Id);
     }
 }

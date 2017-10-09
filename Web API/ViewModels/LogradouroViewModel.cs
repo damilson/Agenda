@@ -1,8 +1,8 @@
 ﻿using Util;
 
-namespace Negocio.Data
+namespace Web_API.ViewModels
 {
-    public class LogradouroDTO
+    public class LogradouroViewModel
     {
         public int LogradouroId { get; set; }
         public int Numero { get; set; }
@@ -11,6 +11,5 @@ namespace Negocio.Data
         public string Bairro { get; set; }
         public string Cidade { get; set; }
         public string Estado { get; set; }
-        public int EnderecoId { get; set; }
     }
 }
