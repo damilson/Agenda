@@ -26,6 +26,7 @@
                         {
                             @Html.HiddenFor(x => endereco.EnderecoId, new { Name = "EnderecoId"})
                             @Html.HiddenFor(x => endereco.Logradouro.LogradouroId, new { Name = "LogradouroId"})
+                           
                             @Html.LabelFor(x => x.Endereco)
                             @Html.EditorFor(x => endereco.EnderecoNome, new { htmlAttributes = new { @class = "form-control", Name = "Endereco" } })
 

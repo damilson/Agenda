@@ -1,5 +1,8 @@
-﻿using Repositorio.Model;
+﻿using System;
+using System.Collections.Generic;
+using Repositorio.Model;
 using Repositorio.Repositorio;
+using System.Linq;
 
 namespace Repositorio.Data
 {
@@ -19,6 +22,13 @@ namespace Repositorio.Data
         public void Editar(Endereco endereco)
         {
             _repositorio.UpdateAndSaveChanges(endereco);
+        }
+
+        public List<Endereco> ListaEndereco()
+        {
+            var endereco = _repositorio.List<Endereco>();
+
+            return endereco.ToList();
         }
     }
 }

@@ -12,5 +12,7 @@ namespace Repositorio.Data
         Endereco Buscar(int Id);
 
         void Editar(Endereco endereco);
+
+        List<Endereco> ListaEndereco();
     }
 }

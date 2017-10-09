@@ -1,10 +1,14 @@
-﻿using Negocio.Interfaces;
+﻿using Negocio.Data;
+using Negocio.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Net.Http.Formatting;
+using System.Threading.Tasks;
 using System.Web.Http;
+using Util;
 using Web_API.Model;
 using Web_API.ViewModels;
 
@@ -57,29 +61,182 @@ namespace Web_API.Controllers
                 }).ToList()
             }).ToList();
 
-            //return new JsonResult { Data = PVM, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
             return PVM;
         }
 
         // GET: api/Pessoa/5
-        public string Get(int id)
+        public PessoaViewModel Get(int id)
         {
-            return "value";
+            var PVM = new PessoaViewModel();
+            var pessoa = _pessoaNegocio.Buscar(id);
+
+            var Pessoa = new Pessoa()
+            {
+                PessoaId = pessoa.PessoaId,
+                Nome = pessoa.Nome,
+                Contatos = pessoa.Contatos.Select(contato => new Contato
+                {
+                    ContatoId = contato.ContatoId,
+                    Nome = contato.Nome,
+                    Agrupador = contato.Agrupador,
+                    TipoContato = contato.TipoContato
+                }).ToList(),
+                Enderecos = pessoa.Enderecos.Select(endereco => new Endereco
+                {
+                    EnderecoId = endereco.EnderecoId,
+                    EnderecoNome = endereco.EnderecoNome,
+                    Logradouro = new Logradouro
+                    {
+                        Bairro = endereco.Logradouro.Bairro,
+                        Cidade = endereco.Logradouro.Cidade,
+                        Complemento = endereco.Logradouro.Complemento,
+                        Estado = endereco.Logradouro.Estado,
+                        Numero = endereco.Logradouro.Numero,
+                        Tipo = endereco.Logradouro.Tipo,
+                        LogradouroId = endereco.LogradouroId
+                    },
+                    LogradouroId = endereco.LogradouroId
+                }).ToList()
+
+            };
+
+            PVM.Pessoa = Pessoa;
+            return PVM;
         }
 
         // POST: api/Pessoa
-        public void Post([FromBody]string value)
+        public HttpResponseMessage Post([FromBody]FormDataCollection collection)
         {
+            var nome = collection.Get("Nome");
+            var endereco = collection.Get("Endereco").Split(',');
+            var cidade = collection.Get("Cidade").Split(',');
+            var numero = collection.Get("Numero").Split(',');
+            var estado = collection.Get("Estado").Split(',');
+            var tipo = collection.Get("Tipo").Split(',');
+            var bairro = collection.Get("Bairro").Split(',');
+            var complemento = collection.Get("Complemento").Split(',');
+
+            var listaEndereco = new List<EnderecoDTO>();
+
+            for (int i = 0; i < endereco.Length; i++)
+            {
+                listaEndereco.Add(new EnderecoDTO
+                {
+                    EnderecoNome = endereco[i],
+                    Logradouro = new LogradouroDTO
+                    {
+                        Numero = int.Parse(numero[i]),
+                        Cidade = cidade[i],
+                        Bairro = bairro[i],
+                        Estado = estado[i],
+                        Tipo = (TipoLogradouro)int.Parse(tipo[i]),
+                        Complemento = complemento[i]
+                    }
+                });
+            }
+
+            var pessoa = new PessoaDTO()
+            {
+                Nome = nome,
+                Enderecos = listaEndereco
+            };
+
+            try
+            {
+                _pessoaNegocio.Cadastrar(pessoa);
+
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateResponse(HttpStatusCode.BadRequest, ex.Message);
+            }
+
+            var Data = new
+            {
+                Mensagem = "Sucesso ao cadastrar"
+            };
+            return Request.CreateResponse(HttpStatusCode.Accepted, Data);
         }
 
         // PUT: api/Pessoa/5
-        public void Put(int id, [FromBody]string value)
+        public HttpResponseMessage Put(int id, [FromBody]FormDataCollection collection)
         {
+            var pessoaId = collection.Get("Id");
+            var nome = collection.Get("Nome");
+            var enderecoId = collection.Get("EnderecoId").Split(',');
+            var endereco = collection.Get("Endereco").Split(',');
+            var logradouroId = collection.Get("LogradouroId").Split(',');
+            var cidade = collection.Get("Cidade").Split(',');
+            var numero = collection.Get("Numero").Split(',');
+            var estado = collection.Get("Estado").Split(',');
+            var tipo = collection.Get("Tipo").Split(',');
+            var bairro = collection.Get("Bairro").Split(',');
+            var complemento = collection.Get("Complemento").Split(',');
+
+            var listaEndereco = new List<EnderecoDTO>();
+
+            for (int i = 0; i < endereco.Length; i++)
+            {
+
+                listaEndereco.Add(new EnderecoDTO
+                {
+                    EnderecoId = enderecoId[i].Equals("") ? 0 : int.Parse(enderecoId[i]),
+                    EnderecoNome = endereco[i],
+                    Logradouro = new LogradouroDTO
+                    {
+                        LogradouroId = logradouroId[i].Equals("") ? 0 : int.Parse(logradouroId[i]),
+                        Numero = int.Parse(numero[i]),
+                        Cidade = cidade[i],
+                        Bairro = bairro[i],
+                        Estado = estado[i],
+                        Tipo = (TipoLogradouro)int.Parse(tipo[i]),
+                        Complemento = complemento[i],
+                        EnderecoId = enderecoId[i].Equals("") ? 0 : int.Parse(enderecoId[i])
+                    },
+                    PessoaId = int.Parse(pessoaId.ToString()),
+                    LogradouroId = logradouroId[i].Equals("") ? 0 : int.Parse(logradouroId[i]),
+
+                });
+            }
+
+            var pessoa = new PessoaDTO()
+            {
+                PessoaId = int.Parse(collection.Get("Id")),
+                Nome = nome,
+                Enderecos = listaEndereco
+            };
+
+            try
+            {
+                _pessoaNegocio.Editar(pessoa);
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateResponse(HttpStatusCode.BadRequest, ex.Message);
+            }
+            var Data = new
+            {
+                Mensagem = "Sucesso ao editar"
+            };
+            return Request.CreateResponse(HttpStatusCode.Accepted, Data);
         }
 
         // DELETE: api/Pessoa/5
-        public void Delete(int id)
+        public HttpResponseMessage Delete(int id)
         {
+            try
+            {
+            _pessoaNegocio.Deletar(id);
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateResponse(HttpStatusCode.BadRequest, ex.Message);
+            }
+            var Data = new
+            {
+                Mensagem = "Sucesso ao deletar"
+            };
+            return Request.CreateResponse(HttpStatusCode.Accepted, Data);
         }
     }
 }

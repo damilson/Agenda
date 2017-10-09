@@ -62,10 +62,12 @@ montaTabelaWebApi = function () {
 detalhe = function (Id) {
     var url;
     if ($("#tab-mvc").hasClass("active")) {
-        url = "";
-        };
+        url = "http://localhost:62568/Pessoa/Details";
+    } else {
+        url = "http://localhost:62583/api/Pessoa";
+    }
 
-    $.post("http://localhost:62568/Pessoa/Details",
+    $.get(url,
         { id: Id },
         function (Data) {
             if (Data != null) {
@@ -110,9 +112,19 @@ detalheContato = function (Id) {
 
 editar = function (Id) {
     var form = $("#edit-form-mvc").serialize();
-    $.post("http://localhost:62568/Pessoa/Edit", form,
+    var url;
+    if ($("#tab-mvc").hasClass("active")) {
+        url = "http://localhost:62568/Pessoa/Edit";
+    } else {
+        url = "http://localhost:62583/api/Pessoa/Put";
+    }
+    $.post(url, form,
         function (Data) {
-            alert(Data.Mensagem)
+            if (Data != null) {
+                alert(Data.Mensagem)
+            } else {
+                alert("Sucesso ao cadastrar")
+            }
             window.location.reload();
         });
 };
@@ -191,7 +203,14 @@ carregaCadastro = function (Id) {
 
 salvarFormContato = function (Id) {
     var form = $("#form-contato-mvc").serialize();
-    $.post("http://localhost:62568/Contato/Create", form,
+    var url;
+    if ($("#tab-mvc").hasClass("active")) {
+        url = "http://localhost:62568/Contato/Create";
+    } else {
+        url = "http://localhost:62583/api/Pessoa";
+    }
+
+    $.post(url, form,
         function (Data) {
             alert(Data.Mensagem)
             window.location.reload();
@@ -200,7 +219,13 @@ salvarFormContato = function (Id) {
 
 salvarForm = function () {
     var form = $("#form-mvc").serialize();
-    $.post("http://localhost:62568/Pessoa/Create", form,
+    var url;
+    if ($("#tab-mvc").hasClass("active")) {
+        url = "http://localhost:62568/Pessoa/Create";
+    } else {
+        url = "http://localhost:62583/api/Pessoa";
+    }
+    $.post(url, form,
         function (Data) {
             alert(Data.Mensagem)
             window.location.reload();
